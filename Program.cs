@@ -9,6 +9,11 @@ byte actPlayer = 1;
 byte sticksTake = 0;
 byte playerOneSticks = 0;
 byte playerTwoSticks = 0;
+string stringInstructions1 = "Players will take turns removing between 1 and 3 of the remaining sticks";
+string stringInstructions2 = "The player that removes the last stick loses!";
+int instructions1Length = stringInstructions1.Length;
+int instructions2Length = stringInstructions2.Length;
+int instructions2Center = (stringInstructions1.Length + 2 - instructions2Length) / 2;
 
 //Main Game Loop
 while (sticksLeft > 0)
@@ -21,19 +26,50 @@ while (sticksLeft > 0)
     //Collect player's number of sticks to take
     while (sticksTake == 0 || sticksTake > maxTake) 
     {
-        //Instructions
-        Console.WriteLine("Players will take turns removing between 1 and 3 of the remaining sticks.");
-        Console.WriteLine("The player that removes the last stick loses.");
+        //Instructions box
+        //Top Line
+        Console.Write("\u250F");
+        for (int lineDraw = instructions1Length + 2; lineDraw > 0; lineDraw -= 1)
+        {
+            Console.Write("\u2501");
+        }
+        Console.Write("\u2513");
         Console.WriteLine();
+        //Instruction Line 1
+        Console.WriteLine("\u2503 " + stringInstructions1 + " \u2503");
+        //Instruction Line 2
+        Console.Write("\u2503");
+        //Line 2 centering attempt
+        for (int instructions2CenterSpace = instructions2Center; instructions2CenterSpace > 0; instructions2CenterSpace -= 1)
+        {
+            Console.Write(" ");
+        }
+        Console.Write(stringInstructions2);
+        for (int instructions2CenterSpace = instructions2Center; instructions2CenterSpace > -1; instructions2CenterSpace -= 1)
+        {
+            Console.Write(" ");
+        }
+        Console.Write("\u2503");
+        Console.WriteLine();
+        //Bottom Line
+        Console.Write("\u2517");
+        for (int lineDraw = instructions1Length + 2; lineDraw > 0; lineDraw -= 1)
+        {
+            Console.Write("\u2501");
+        }
+        Console.Write("\u251B");
+      Console.WriteLine();
 
         //Nice looking stick status display, need to format better
         Console.Write("Sticks Left: ");
         for (byte stickDraw = sticksLeft; stickDraw > 0; stickDraw -= 1) Console.Write("|");
         Console.Write($"   ({sticksLeft})");
         Console.WriteLine();
+        //Player 1 stick display
         Console.Write("Player One Sticks:");
         for (byte stickDraw = playerOneSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
         Console.Write($"   ({playerOneSticks})");
+        //Player 2 stick display
         Console.Write("Player Two Sticks:");
         for (byte stickDraw = playerTwoSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
         Console.Write($"   ({playerTwoSticks})");
