@@ -1,27 +1,25 @@
 ﻿//Jaden Olvera, 9-22-25, Lab 4: Game of Sticks
 
-Console.Title = "Sticks Game";
+Console.Title = "The Game of Sticks";
 Console.Clear();
 
 //set up variables
-byte sticksLeft = 20;
-byte actPlayer = 1;
-byte sticksTake = 0;
-byte playerOneSticks = 0;
-byte playerTwoSticks = 0;
+byte sticksRemaining = 20;
+byte activePlayer = 1;
+byte sticksToTake = 0;
 string stringInstructions1 = "Players will take turns removing between 1 and 3 of the remaining sticks";
 string stringInstructions2 = "The player that removes the last stick loses!";
 
 //Main Game Loop
-while (sticksLeft > 0)
+while (sticksRemaining > 0)
 {
     //Check if we need to lower the max sticks taken
-    byte maxTake;
-    if (sticksLeft >= 3) maxTake = 3;
-    else maxTake = sticksLeft;
+    byte maxToTake;
+    if (sticksRemaining >= 3) maxToTake = 3;
+    else maxToTake = sticksRemaining;
 
     //Collect player's number of sticks to take
-    while (sticksTake == 0 || sticksTake > maxTake)
+    while (sticksToTake == 0 || sticksToTake > maxToTake)
     {
         //Instructions box
         //Top Line
@@ -59,35 +57,25 @@ while (sticksLeft > 0)
         Console.WriteLine();
 
         //Nice looking stick status display, need to format better
-        Console.Write(string.Format("{0, 30}", "Sticks Left: "));
-        Console.Write($"{sticksLeft,-3}");
-        for (byte stickDraw = sticksLeft; stickDraw > 0; stickDraw -= 1) Console.Write("|");
-        Console.WriteLine();
-        Console.WriteLine();
-
-        //Player 1 stick display
-        Console.Write($"Player One Sticks:  ({playerOneSticks})  ");
-        for (byte stickDraw = playerOneSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
-        //Player 2 stick display
-        Console.Write("Player Two Sticks:");
-        for (byte stickDraw = playerTwoSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
-        Console.Write($"   ({playerTwoSticks})");
+        Console.Write(string.Format("{0, 34}", "Sticks Remaining: "));
+        Console.Write($"{sticksRemaining,-3}");
+        for (byte stickDraw = sticksRemaining; stickDraw > 0; stickDraw -= 1) Console.Write("|");
         Console.WriteLine();
         Console.WriteLine();
 
         //Take input and convert, need to TryParse
-        Console.WriteLine($"Player {actPlayer}, please choose a number of sticks between 1 and {maxTake}.");
+        Console.WriteLine($"Player {activePlayer}, please choose a number of sticks between 1 and {maxToTake}.");
         string stringTake = Console.ReadLine()!;
-        bool parseSuccess = byte.TryParse(stringTake, out sticksTake);
+        bool parseSuccess = byte.TryParse(stringTake, out sticksToTake);
 
         Console.Clear();
 
         //Check input for the right range
-        if (parseSuccess == false || sticksTake == 0 || sticksTake > maxTake)
+        if (parseSuccess == false || sticksToTake == 0 || sticksToTake > maxToTake)
         {
-            if (parseSuccess == false) Console.WriteLine("Error: Parse fail");
-            else if (sticksTake == 0) Console.WriteLine("Error: 0 sticks");
-            else if (sticksTake > maxTake) Console.WriteLine($"Error: More sticks than {maxTake}");
+            if (parseSuccess == false) Console.WriteLine($"I'm sorry, Player {activePlayer}, but the game couldn't understand that input, please try again with a number.");
+            else if (sticksToTake == 0) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you must take at least one stick.");
+            else if (sticksToTake > maxToTake) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you can't take more than {maxToTake} sticks.");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
             Console.Clear();
@@ -95,19 +83,15 @@ while (sticksLeft > 0)
     }
 
     //Remove the sticks they choose from the remaining
-    sticksLeft -= sticksTake;
-
-    //Player Stick count tracking, for fun
-    if (actPlayer == 1) playerOneSticks += sticksTake;
-    else if (actPlayer == 2) playerTwoSticks += sticksTake;
+    sticksRemaining -= sticksToTake;
 
     //Switch players
-    if (actPlayer == 1) actPlayer = 2;
-    else actPlayer = 1;
+    if (activePlayer == 1) activePlayer = 2;
+    else activePlayer = 1;
 
     //Reset player stick #
-    sticksTake = 0;
+    sticksToTake = 0;
 }
 
 //Whichever player didn't take the last stick
-Console.WriteLine($"Player {actPlayer} wins!");
+Console.WriteLine($"Player {activePlayer} wins!");
