@@ -80,7 +80,7 @@ while (sticksRemaining > 0)
         Console.WriteLine();
 
         //Take input and parse
-        Console.WriteLine($"Player {activePlayer}, please choose a number of sticks between 1 and {maxToTake}.");
+        Console.Write(string.Format("{0, 67}", $"Player {activePlayer}, please choose a number of sticks between 1 and {maxToTake}: "));
         string stringTake = Console.ReadLine()!;
         bool parseSuccess = byte.TryParse(stringTake, out sticksToTake);
 
@@ -90,7 +90,9 @@ while (sticksRemaining > 0)
         if (parseSuccess == false || sticksToTake == 0 || sticksToTake > maxToTake)
         {
             if (parseSuccess == false) Console.WriteLine($"I'm sorry, Player {activePlayer}, but the game couldn't understand that input, please try again with a number.");
+            else if (sticksToTake == 0 && maxToTake == 1) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you have to take the last stick...");
             else if (sticksToTake == 0) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you must take at least one stick.");
+            else if (sticksToTake > maxToTake && maxToTake == 1) Console.WriteLine($"I'm sorry, Player {activePlayer}, but there's only one last stick to take...");
             else if (sticksToTake > maxToTake) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you can't take more than {maxToTake} sticks.");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
