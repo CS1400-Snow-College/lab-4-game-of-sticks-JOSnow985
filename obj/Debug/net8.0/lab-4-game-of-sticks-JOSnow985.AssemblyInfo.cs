@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lab-4-game-of-sticks-JOSnow985")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82209e251583cf67972b03d7d1e987631f081620")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c05fae598f937ac1bf6ce610bd0682e3767e330")]
 [assembly: System.Reflection.AssemblyProductAttribute("lab-4-game-of-sticks-JOSnow985")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lab-4-game-of-sticks-JOSnow985")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
