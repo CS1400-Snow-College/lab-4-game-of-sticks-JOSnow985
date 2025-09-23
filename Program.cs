@@ -58,13 +58,16 @@ while (sticksLeft > 0)
             Console.Write("\u2501");
         }
         Console.Write("\u251B");
-      Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
 
         //Nice looking stick status display, need to format better
         Console.Write("Sticks Left: ");
+        Console.Write($"{sticksLeft,-3}");
         for (byte stickDraw = sticksLeft; stickDraw > 0; stickDraw -= 1) Console.Write("|");
-        Console.Write($"   ({sticksLeft})");
         Console.WriteLine();
+        Console.WriteLine();
+
         //Player 1 stick display
         Console.Write("Player One Sticks:");
         for (byte stickDraw = playerOneSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
@@ -79,14 +82,15 @@ while (sticksLeft > 0)
         //Take input and convert, need to TryParse
         Console.WriteLine($"Player {actPlayer}, please choose a number of sticks between 1 and {maxTake}.");
         string stringTake = Console.ReadLine();
-        sticksTake = Convert.ToByte(stringTake);
+        bool parseSuccess = byte.TryParse(stringTake, out sticksTake);
 
         Console.Clear();
         
         //Check input for the right range
-        if (sticksTake == 0 || sticksTake > maxTake)
+        if (parseSuccess == false || sticksTake == 0 || sticksTake > maxTake)
         {
-            if (sticksTake == 0) Console.WriteLine("Error: 0 sticks");
+            if (parseSuccess == false) Console.WriteLine("Error: Parse fail");
+            else if (sticksTake == 0) Console.WriteLine("Error: 0 sticks");
             else if (sticksTake > maxTake) Console.WriteLine($"Error: More sticks than {maxTake}");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
