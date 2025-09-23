@@ -11,9 +11,6 @@ byte playerOneSticks = 0;
 byte playerTwoSticks = 0;
 string stringInstructions1 = "Players will take turns removing between 1 and 3 of the remaining sticks";
 string stringInstructions2 = "The player that removes the last stick loses!";
-int instructions1Length = stringInstructions1.Length;
-int instructions2Length = stringInstructions2.Length;
-int instructions2Center = (stringInstructions1.Length + 2 - instructions2Length) / 2;
 
 //Main Game Loop
 while (sticksLeft > 0)
@@ -24,12 +21,12 @@ while (sticksLeft > 0)
     else maxTake = sticksLeft;
 
     //Collect player's number of sticks to take
-    while (sticksTake == 0 || sticksTake > maxTake) 
+    while (sticksTake == 0 || sticksTake > maxTake)
     {
         //Instructions box
         //Top Line
         Console.Write("\u250F");
-        for (int lineDraw = instructions1Length + 2; lineDraw > 0; lineDraw -= 1)
+        for (int lineDraw = stringInstructions1.Length + 2; lineDraw > 0; lineDraw -= 1)
         {
             Console.Write("\u2501");
         }
@@ -40,12 +37,12 @@ while (sticksLeft > 0)
         //Instruction Line 2
         Console.Write("\u2503");
         //Line 2 centering attempt
-        for (int instructions2CenterSpace = instructions2Center; instructions2CenterSpace > 0; instructions2CenterSpace -= 1)
+        for (int instructions2CenterSpace = (stringInstructions1.Length + 1 - stringInstructions2.Length) / 2 + 1; instructions2CenterSpace > 0; instructions2CenterSpace -= 1)
         {
             Console.Write(" ");
         }
         Console.Write(stringInstructions2);
-        for (int instructions2CenterSpace = instructions2Center; instructions2CenterSpace > -1; instructions2CenterSpace -= 1)
+        for (int instructions2CenterSpace = (stringInstructions1.Length + 1 - stringInstructions2.Length) / 2; instructions2CenterSpace > 0; instructions2CenterSpace -= 1)
         {
             Console.Write(" ");
         }
@@ -53,7 +50,7 @@ while (sticksLeft > 0)
         Console.WriteLine();
         //Bottom Line
         Console.Write("\u2517");
-        for (int lineDraw = instructions1Length + 2; lineDraw > 0; lineDraw -= 1)
+        for (int lineDraw = stringInstructions1.Length + 2; lineDraw > 0; lineDraw -= 1)
         {
             Console.Write("\u2501");
         }
@@ -62,16 +59,15 @@ while (sticksLeft > 0)
         Console.WriteLine();
 
         //Nice looking stick status display, need to format better
-        Console.Write("Sticks Left: ");
+        Console.Write(string.Format("{0, 30}", "Sticks Left: "));
         Console.Write($"{sticksLeft,-3}");
         for (byte stickDraw = sticksLeft; stickDraw > 0; stickDraw -= 1) Console.Write("|");
         Console.WriteLine();
         Console.WriteLine();
 
         //Player 1 stick display
-        Console.Write("Player One Sticks:");
+        Console.Write($"Player One Sticks:  ({playerOneSticks})  ");
         for (byte stickDraw = playerOneSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
-        Console.Write($"   ({playerOneSticks})");
         //Player 2 stick display
         Console.Write("Player Two Sticks:");
         for (byte stickDraw = playerTwoSticks; stickDraw > 0; stickDraw -= 1) Console.Write("|");
@@ -81,11 +77,11 @@ while (sticksLeft > 0)
 
         //Take input and convert, need to TryParse
         Console.WriteLine($"Player {actPlayer}, please choose a number of sticks between 1 and {maxTake}.");
-        string stringTake = Console.ReadLine();
+        string stringTake = Console.ReadLine()!;
         bool parseSuccess = byte.TryParse(stringTake, out sticksTake);
 
         Console.Clear();
-        
+
         //Check input for the right range
         if (parseSuccess == false || sticksTake == 0 || sticksTake > maxTake)
         {
