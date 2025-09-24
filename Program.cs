@@ -84,20 +84,18 @@ while (sticksRemaining > 0)
         string stringTake = Console.ReadLine()!;
         bool parseSuccess = byte.TryParse(stringTake, out sticksToTake);
 
-        Console.Clear();
-
+        Console.WriteLine();
         //Check input for parsing and correct range
         if (parseSuccess == false || sticksToTake == 0 || sticksToTake > maxToTake)
         {
-            if (parseSuccess == false) Console.WriteLine($"I'm sorry, Player {activePlayer}, but the game couldn't understand that input, please try again with a number.");
-            else if (sticksToTake == 0 && maxToTake == 1) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you have to take the last stick...");
-            else if (sticksToTake == 0) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you must take at least one stick.");
-            else if (sticksToTake > maxToTake && maxToTake == 1) Console.WriteLine($"I'm sorry, Player {activePlayer}, but there's only one last stick to take...");
-            else if (sticksToTake > maxToTake) Console.WriteLine($"I'm sorry, Player {activePlayer}, but you can't take more than {maxToTake} sticks.");
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey(true);
-            Console.Clear();
+            if (parseSuccess == false) Console.Write($"I'm sorry, Player {activePlayer}, but the game couldn't understand that input, please try again with a number between 1 and {maxToTake}.");
+            else if (sticksToTake == 0 && maxToTake == 1) Console.Write($"I'm sorry, Player {activePlayer}, but you have to take the last stick...");
+            else if (sticksToTake == 0) Console.Write($"I'm sorry, Player {activePlayer}, but you must take at least one stick.");
+            else if (sticksToTake > maxToTake && maxToTake == 1) Console.Write($"I'm sorry, Player {activePlayer}, but there's only one last stick to take...");
+            else if (sticksToTake > maxToTake) Console.Write($"I'm sorry, Player {activePlayer}, but you can't take more than {maxToTake} sticks.");
+            Thread.Sleep(2500);
         }
+        Console.Clear();
     }
 
     //Remove the sticks they choose from the remaining
